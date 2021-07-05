@@ -9,6 +9,7 @@ import { Menu } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { useMediaQuery } from "@material-ui/core";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Nav = () => {
-  // const { history } = props;
+  const router = useRouter();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -41,14 +42,14 @@ const Nav = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  //   const handleMenuClick = pageURL => {
-  //     history.push(pageURL);
-  //     setAnchorEl(null);
-  //   };
+  // const handleMenuClick = pageURL => {
+  //   history.push(pageURL);
+  //   setAnchorEl(null);
+  // };
 
-  //   const handleButtonClick = pageURL => {
-  //     history.push(pageURL);
-  //   };
+  // const handleButtonClick = pageURL => {
+  //   history.push(pageURL);
+  // };
 
   const menuItems = [
     {
@@ -56,12 +57,32 @@ const Nav = () => {
       pageURL: "/",
     },
     {
-      menuTitle: "Contact",
-      pageURL: "/contact",
+      menuTitle: "Schedule",
+      pageURL: "/schedule",
     },
     {
-      menuTitle: "About",
-      pageURL: "/about",
+      menuTitle: "History",
+      pageURL: "/history",
+    },
+    {
+      menuTitle: "Gallery",
+      pageURL: "/gallery",
+    },
+    {
+      menuTitle: "Pageant",
+      pageURL: "/pageant",
+    },
+    {
+      menuTitle: "Volunteer",
+      pageURL: "/volunteer",
+    },
+    {
+      menuTitle: "Sponsors",
+      pageURL: "/sponsors",
+    },
+    {
+      menuTitle: "Contact",
+      pageURL: "/contact",
     },
   ];
 
@@ -72,9 +93,9 @@ const Nav = () => {
           <Typography variant="h6" className={classes.title}>
             Photos
           </Typography>
-          <div>
+          {/* <div>
             <img src="/mound.jpg" />
-          </div>
+          </div> */}
           {isMobile ? (
             <>
               <IconButton
@@ -103,15 +124,39 @@ const Nav = () => {
               >
                 {menuItems.map((menuItem) => {
                   const { menuTitle, pageURL } = menuItem;
-                  return <MenuItem>{menuTitle}</MenuItem>;
+                  return (
+                    <MenuItem
+                      onClick={() => {
+                        setAnchorEl(null);
+                        router.push(pageURL);
+                      }}
+                    >
+                      {menuTitle}
+                    </MenuItem>
+                  );
                 })}
               </Menu>
             </>
           ) : (
             <div className={classes.headerOptions}>
+              {menuItems.map((menuItem) => {
+                const { menuTitle, pageURL } = menuItem;
+                return (
+                  <Button
+                    variant="contained"
+                    onClick={() => router.push(pageURL)}
+                  >
+                    {menuTitle}
+                  </Button>
+                );
+              })}
+
+              {/* <Button variant="contained">Schedule</Button>
+              <Button variant="contained"></Button>
               <Button variant="contained">HOME</Button>
               <Button variant="contained">CONTACT</Button>
               <Button variant="contained">ABOUT</Button>
+              <Button variant="contained">ABOUT</Button> */}
             </div>
           )}
         </Toolbar>

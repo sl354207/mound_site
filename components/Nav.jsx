@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   headerOptions: {
     display: "flex",
     flex: 1,
-    justifyContent: "space-evenly",
+    justifyContent: "flex-end",
   },
   hide: {
     display: "none",
@@ -57,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
   },
 }));
 
@@ -66,7 +65,7 @@ const Nav = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const open = Boolean(anchorEl);
+  // const open = Boolean(anchorEl);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
 
@@ -87,7 +86,13 @@ const Nav = () => {
     setDrawerOpen(true);
   };
 
-  const handleDrawerClose = () => {
+  const handleDrawerClose = (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
     setDrawerOpen(false);
   };
 
@@ -130,9 +135,6 @@ const Nav = () => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            Photos
-          </Typography>
           {/* <div>
             <img src="/mound.jpg" />
           </div> */}
@@ -176,37 +178,42 @@ const Nav = () => {
                   );
                 })}
               </Menu> */}
+              <Typography variant="h6" className={classes.title}>
+                Mound
+              </Typography>
               <Drawer
                 className={classes.drawer}
-                anchor="right"
+                anchor="left"
                 open={drawerOpen}
+                onClose={handleDrawerClose}
                 classes={{
                   paper: classes.drawerPaper,
                 }}
               >
                 <div className={classes.drawerHeader}>
+                  <Typography variant="h6" className={classes.title}>
+                    Mound
+                  </Typography>
                   <IconButton onClick={handleDrawerClose}>
-                    {theme.direction === "ltr" ? (
-                      <ChevronLeftIcon />
-                    ) : (
-                      <ChevronRightIcon />
-                    )}
+                    <ChevronLeftIcon />
                   </IconButton>
                 </div>
                 <Divider />
                 <List>
-                  {["Inbox", "Starred", "Send email", "Drafts"].map(
-                    (text, index) => (
-                      <ListItem button key={text}>
-                        <ListItemIcon>
-                          {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                      </ListItem>
-                    )
-                  )}
+                  {menuItems.map((menuItem) => (
+                    <ListItem
+                      button
+                      key={menuItem.menuTitle}
+                      onClick={() => {
+                        handleDrawerClose(Event);
+                        router.push(menuItem.pageURL);
+                      }}
+                    >
+                      <ListItemText primary={menuItem.menuTitle} />
+                    </ListItem>
+                  ))}
                 </List>
-                <Divider />
+                {/* <Divider />
                 <List>
                   {["All mail", "Trash", "Spam"].map((text, index) => (
                     <ListItem button key={text}>
@@ -216,30 +223,35 @@ const Nav = () => {
                       <ListItemText primary={text} />
                     </ListItem>
                   ))}
-                </List>
+                </List> */}
               </Drawer>
             </>
           ) : (
-            <div className={classes.headerOptions}>
-              {menuItems.map((menuItem) => {
-                const { menuTitle, pageURL } = menuItem;
-                return (
-                  <Button
-                    variant="contained"
-                    onClick={() => router.push(pageURL)}
-                  >
-                    {menuTitle}
-                  </Button>
-                );
-              })}
+            <>
+              <Typography variant="h6" className={classes.title}>
+                Mound
+              </Typography>
+              <div className={classes.headerOptions}>
+                {menuItems.map((menuItem) => {
+                  const { menuTitle, pageURL } = menuItem;
+                  return (
+                    <Button
+                      variant="contained"
+                      onClick={() => router.push(pageURL)}
+                    >
+                      {menuTitle}
+                    </Button>
+                  );
+                })}
 
-              {/* <Button variant="contained">Schedule</Button>
-              <Button variant="contained"></Button>
-              <Button variant="contained">HOME</Button>
-              <Button variant="contained">CONTACT</Button>
-              <Button variant="contained">ABOUT</Button>
-              <Button variant="contained">ABOUT</Button> */}
-            </div>
+                {/* <Button variant="contained">Schedule</Button>
+                <Button variant="contained"></Button>
+                <Button variant="contained">HOME</Button>
+                <Button variant="contained">CONTACT</Button>
+                <Button variant="contained">ABOUT</Button>
+                <Button variant="contained">ABOUT</Button> */}
+              </div>
+            </>
           )}
         </Toolbar>
       </AppBar>

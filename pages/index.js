@@ -1,8 +1,23 @@
-import Head from 'next/head'
-import Header from '@components/Header'
-import Footer from '@components/Footer'
+import Head from "next/head";
+import Header from "@components/Header";
+import Footer from "@components/Footer";
+
+import ReactMapGL, { Marker } from "react-map-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
+import { useState } from "react";
+
+import RoomIcon from "@material-ui/icons/Room";
+
+const fake =
+  "pk.eyJ1Ijoic2wzNTQyMDciLCJhIjoiY2twaDJ1OTU1MDhtZDJ1b2x0N3c3ZnYwdiJ9.P7qlEddqung5yTH_u8VF7Q";
 
 export default function Home() {
+  const [viewport, setViewport] = useState({
+    longitude: -82.140565,
+    latitude: 39.369474,
+    zoom: 14,
+  });
+
   return (
     <div className="container">
       <Head>
@@ -17,8 +32,25 @@ export default function Home() {
           Get started by editing <code>pages/index.js</code>
         </p>
       </main>
+      <ReactMapGL
+        {...viewport}
+        width="100vw"
+        height="100vh"
+        onViewportChange={setViewport}
+        mapStyle="mapbox://styles/mapbox/streets-v11"
+        mapboxApiAccessToken={TOKEN}
+      >
+        <Marker
+          latitude={39.369474}
+          longitude={-82.140565}
+          offsetLeft={-20}
+          offsetTop={-10}
+        >
+          <RoomIcon fontSize="large" />
+        </Marker>
+      </ReactMapGL>
 
       <Footer />
     </div>
-  )
+  );
 }

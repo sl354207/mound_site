@@ -8,8 +8,7 @@ import { useState } from "react";
 
 import RoomIcon from "@material-ui/icons/Room";
 
-const fake =
-  "pk.eyJ1Ijoic2wzNTQyMDciLCJhIjoiY2twaDJ1OTU1MDhtZDJ1b2x0N3c3ZnYwdiJ9.P7qlEddqung5yTH_u8VF7Q";
+const TOKEN = process.env.NEXT_PUBLIC_MAPBOX;
 
 export default function Home() {
   const [viewport, setViewport] = useState({

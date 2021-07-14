@@ -17,7 +17,7 @@ export default async function handler(req, res) {
       host: "smtp.gmail.com",
       auth: {
         user: "moundcontactinfo@gmail.com",
-        pass: process.env.PASSWORD,
+        pass: process.env.NEXT_PUBLIC_PASSWORD,
       },
       secure: true,
     });

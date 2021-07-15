@@ -47,13 +47,7 @@ const Form = () => {
 
   return (
     <div>
-      <form
-        noValidate
-        autoComplete="off"
-        name="contact"
-        method="POST"
-        data-netlify="true"
-      >
+      <form name="contact" method="POST" data-netlify="true">
         <TextField
           id="name"
           label="name"
@@ -88,7 +82,7 @@ const Form = () => {
           Submit
         </Button> */}
         <p>
-          <button type="submit">Send</button>
+          <input type="submit" />
         </p>
       </form>
     </div>

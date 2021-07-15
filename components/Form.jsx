@@ -46,46 +46,72 @@ const Form = () => {
   };
 
   return (
-    <div>
-      <form name="contact" method="POST" data-netlify="true">
-        <TextField
-          id="name"
-          label="name"
-          variant="outlined"
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
-        />
-        <TextField
-          id="email"
-          label="email"
-          type="email"
-          variant="outlined"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
-        <TextField
-          id="message"
-          label="message"
-          variant="outlined"
-          onChange={(e) => {
-            setMessage(e.target.value);
-          }}
-        />
-        {/* <Button
-          variant="contained"
-          onClick={(e) => {
-            handleSubmit(e);
-          }}
-        >
-          Submit
-        </Button> */}
-        <p>
-          <input type="submit" />
-        </p>
-      </form>
-    </div>
+    // <div>
+    //   <form noValidate autoComplete="off">
+    //     <TextField
+    //       id="name"
+    //       label="name"
+    //       variant="outlined"
+    //       onChange={(e) => {
+    //         setName(e.target.value);
+    //       }}
+    //     />
+    //     <TextField
+    //       id="email"
+    //       label="email"
+    //       type="email"
+    //       variant="outlined"
+    //       onChange={(e) => {
+    //         setEmail(e.target.value);
+    //       }}
+    //     />
+    //     <TextField
+    //       id="message"
+    //       label="message"
+    //       variant="outlined"
+    //       onChange={(e) => {
+    //         setMessage(e.target.value);
+    //       }}
+    //     />
+    //     <Button
+    //       variant="contained"
+    //       onClick={(e) => {
+    //         handleSubmit(e);
+    //       }}
+    //     >
+    //       Submit
+    //     </Button>
+    //   </form>
+    // </div>
+    <form name="contact" method="POST" data-netlify="true">
+      <p>
+        <label>
+          Your Name: <input type="text" name="name" />
+        </label>
+      </p>
+      <p>
+        <label>
+          Your Email: <input type="email" name="email" />
+        </label>
+      </p>
+      <p>
+        <label>
+          Your Role:{" "}
+          <select name="role[]" multiple>
+            <option value="leader">Leader</option>
+            <option value="follower">Follower</option>
+          </select>
+        </label>
+      </p>
+      <p>
+        <label>
+          Message: <textarea name="message"></textarea>
+        </label>
+      </p>
+      <p>
+        <button type="submit">Send</button>
+      </p>
+    </form>
   );
 };
 

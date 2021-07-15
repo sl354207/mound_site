@@ -47,7 +47,13 @@ const Form = () => {
 
   return (
     <div>
-      <form noValidate autoComplete="off">
+      <form
+        noValidate
+        autoComplete="off"
+        name="contact"
+        method="POST"
+        data-netlify="true"
+      >
         <TextField
           id="name"
           label="name"
@@ -73,14 +79,17 @@ const Form = () => {
             setMessage(e.target.value);
           }}
         />
-        <Button
+        {/* <Button
           variant="contained"
           onClick={(e) => {
             handleSubmit(e);
           }}
         >
           Submit
-        </Button>
+        </Button> */}
+        <p>
+          <button type="submit">Send</button>
+        </p>
       </form>
     </div>
   );

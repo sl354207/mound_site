@@ -1,4 +1,4 @@
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles, useTheme, withStyles } from "@material-ui/core/styles";
 import { AppBar } from "@material-ui/core";
 import { Toolbar } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
@@ -21,8 +21,49 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+import { Tabs, Tab } from "@material-ui/core";
 
 const drawerWidth = 240;
+
+const AntTabs = withStyles((theme) => ({
+  root: {},
+  indicator: {
+    backgroundColor: theme.palette.secondary.dark,
+  },
+}))(Tabs);
+
+const AntTab = withStyles((theme) => ({
+  root: {
+    textTransform: "none",
+    minWidth: 72,
+    fontWeight: theme.typography.fontWeightRegular,
+    marginRight: theme.spacing(4),
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+    "&:hover": {
+      color: theme.palette.secondary.dark,
+      opacity: 1,
+    },
+    "&$selected": {
+      color: theme.palette.secondary.dark,
+      fontWeight: theme.typography.fontWeightMedium,
+    },
+    "&:focus": {
+      color: theme.palette.secondary.dark,
+    },
+  },
+  selected: {},
+}))((props) => <Tab disableRipple {...props} />);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,6 +99,12 @@ const useStyles = makeStyles((theme) => ({
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
+  padding: {
+    padding: theme.spacing(3),
+  },
+  demo1: {
+    backgroundColor: theme.palette.background.paper,
+  },
 }));
 
 const Nav = () => {
@@ -68,6 +115,12 @@ const Nav = () => {
   // const open = Boolean(anchorEl);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -232,24 +285,28 @@ const Nav = () => {
                 Mound
               </Typography>
               <div className={classes.headerOptions}>
-                {menuItems.map((menuItem) => {
-                  const { menuTitle, pageURL } = menuItem;
-                  return (
-                    <Button
-                      variant="contained"
-                      onClick={() => router.push(pageURL)}
-                    >
-                      {menuTitle}
-                    </Button>
-                  );
-                })}
-
-                {/* <Button variant="contained">Schedule</Button>
-                <Button variant="contained"></Button>
-                <Button variant="contained">HOME</Button>
-                <Button variant="contained">CONTACT</Button>
-                <Button variant="contained">ABOUT</Button>
-                <Button variant="contained">ABOUT</Button> */}
+                <AntTabs
+                  value={value}
+                  onChange={handleChange}
+                  aria-label="ant example"
+                >
+                  {menuItems.map((menuItem) => {
+                    const { menuTitle, pageURL } = menuItem;
+                    return (
+                      // <Button
+                      //   variant="contained"
+                      //   onClick={() => router.push(pageURL)}
+                      // >
+                      //   {menuTitle}
+                      // </Button>
+                      <AntTab
+                        label={menuTitle}
+                        onClick={() => router.push(pageURL)}
+                      />
+                    );
+                  })}
+                </AntTabs>
+                <Typography className={classes.padding} />
               </div>
             </>
           )}

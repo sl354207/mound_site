@@ -186,7 +186,7 @@ const Nav = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           {/* <div>
             <img src="/mound.jpg" />
@@ -312,6 +312,7 @@ const Nav = () => {
           )}
         </Toolbar>
       </AppBar>
+      <Toolbar></Toolbar>
     </div>
   );
 };

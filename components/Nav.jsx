@@ -37,7 +37,8 @@ const AntTab = withStyles((theme) => ({
     textTransform: "none",
     minWidth: 72,
     fontWeight: theme.typography.fontWeightRegular,
-    marginRight: theme.spacing(4),
+    marginRight: theme.spacing(3),
+    fontSize: 16,
     fontFamily: [
       "-apple-system",
       "BlinkMacSystemFont",
@@ -73,7 +74,8 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   title: {
-    [theme.breakpoints.down("xs")]: {
+    marginRight: theme.spacing(4),
+    [theme.breakpoints.down("md")]: {
       flexGrow: 1,
     },
   },
@@ -114,7 +116,7 @@ const Nav = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   // const open = Boolean(anchorEl);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const [value, setValue] = useState(0);
 
@@ -173,6 +175,11 @@ const Nav = () => {
     {
       menuTitle: "Volunteer",
       pageURL: "/volunteer",
+    },
+
+    {
+      menuTitle: "Vendors",
+      pageURL: "/vendors",
     },
     {
       menuTitle: "Sponsors",

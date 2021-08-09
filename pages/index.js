@@ -7,8 +7,8 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { useState } from "react";
 
 import RoomIcon from "@material-ui/icons/Room";
-import { Box, Paper, Typography, Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Box, Paper, Typography, Grid, useMediaQuery } from "@material-ui/core";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 const TOKEN = process.env.NEXT_PUBLIC_MAPBOX;
 
@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: "cover",
     position: "relative",
     display: "flex",
-
     alignItems: "center",
     color: "#fff",
     fontSize: "4rem",
@@ -49,11 +48,18 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       fontSize: "0.25em",
     },
+    justifyContent: "center",
+  },
+  words: {
+    margin: 20,
   },
 }));
 
 export default function Home() {
   const classes = useStyles();
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [viewport, setViewport] = useState({
     longitude: -82.140565,
@@ -70,31 +76,80 @@ export default function Home() {
       </Head>
 
       <Box className={classes.hero}>
-        <Grid container xs={12} sm={6}>
+        <Grid container item xs={12} md={6}>
           <Paper className={classes.overlay}>
-            <Typography className={classes.text}>The Plains</Typography>
-            <Typography className={classes.text}>Mound Festival</Typography>
-            <Typography className={classes.text}>October 8th, 2021</Typography>
+            <Typography className={classes.text} align="center">
+              The Plains
+            </Typography>
+            <Typography className={classes.text} align="center">
+              Mound Festival
+            </Typography>
+            <Typography className={classes.text} align="center">
+              October 8th, 2021
+            </Typography>
           </Paper>
         </Grid>
       </Box>
-      <ReactMapGL
-        {...viewport}
-        width="100vw"
-        height="100vh"
-        onViewportChange={setViewport}
-        mapStyle="mapbox://styles/mapbox/streets-v11"
-        mapboxApiAccessToken={TOKEN}
-      >
-        <Marker
-          latitude={39.369474}
-          longitude={-82.140565}
-          offsetLeft={-20}
-          offsetTop={-10}
-        >
-          <RoomIcon fontSize="large" />
-        </Marker>
-      </ReactMapGL>
+      <Grid container>
+        <Grid item xs={12} md={6}>
+          <Typography sx={{ textTransform: "uppercase" }} variant="h6">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium
+            nunc lacus, quis aliquam tortor efficitur id. Quisque nulla sem,
+            commodo eu fermentum ut, pretium vitae est. Donec et nisi at ante
+            molestie vulputate. Donec mattis tempus quam, eu viverra est
+            suscipit accumsan. Mauris quis mi vel ipsum vehicula scelerisque
+            vehicula in metus. Mauris rhoncus felis lectus, a posuere magna
+            ultrices at. Etiam feugiat magna eget sollicitudin porta. Fusce
+            nulla neque, maximus vel accumsan sed, euismod sit amet tellus. Nam
+            vitae sagittis nunc. Etiam molestie risus vel augue iaculis
+            venenatis. Curabitur imperdiet, nisi in sagittis posuere, mauris
+            quam dignissim libero, nec varius augue lorem at lacus. Nulla et
+            finibus velit. In urna justo, pharetra at orci id, laoreet sodales
+            lacus. Nunc semper lectus et odio fermentum semper. Integer
+            malesuada velit vitae tellus auctor vulputate. Quisque accumsan arcu
+            id magna vestibulum convallis vitae lobortis arcu.
+          </Typography>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          {isMobile ? (
+            <ReactMapGL
+              {...viewport}
+              width="95vw"
+              height="460px"
+              onViewportChange={setViewport}
+              mapStyle="mapbox://styles/mapbox/streets-v11"
+              mapboxApiAccessToken={TOKEN}
+            >
+              <Marker
+                latitude={39.369474}
+                longitude={-82.140565}
+                offsetLeft={-20}
+                offsetTop={-10}
+              >
+                <RoomIcon fontSize="large" />
+              </Marker>
+            </ReactMapGL>
+          ) : (
+            <ReactMapGL
+              {...viewport}
+              width="45vw"
+              height="460px"
+              onViewportChange={setViewport}
+              mapStyle="mapbox://styles/mapbox/streets-v11"
+              mapboxApiAccessToken={TOKEN}
+            >
+              <Marker
+                latitude={39.369474}
+                longitude={-82.140565}
+                offsetLeft={-20}
+                offsetTop={-10}
+              >
+                <RoomIcon fontSize="large" />
+              </Marker>
+            </ReactMapGL>
+          )}
+        </Grid>
+      </Grid>
 
       <Footer />
     </div>

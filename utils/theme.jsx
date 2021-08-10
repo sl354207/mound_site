@@ -5,6 +5,7 @@ import { grey } from "@material-ui/core/colors";
 const theme = createTheme({
   palette: {
     primary: {
+      // #fafafa
       main: grey[50],
       light: "#ffffff",
       dark: "#c7c7c7",

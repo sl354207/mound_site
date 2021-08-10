@@ -7,7 +7,14 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { useState } from "react";
 
 import RoomIcon from "@material-ui/icons/Room";
-import { Box, Paper, Typography, Grid, useMediaQuery } from "@material-ui/core";
+import {
+  Box,
+  Paper,
+  Typography,
+  Grid,
+  useMediaQuery,
+  Divider,
+} from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 const TOKEN = process.env.NEXT_PUBLIC_MAPBOX;
@@ -24,13 +31,14 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     color: "#fff",
     fontSize: "4rem",
+
     [theme.breakpoints.down("sm")]: {
       height: 300,
-      fontSize: "3em",
+      fontSize: "4em",
     },
   },
   overlay: {
-    backgroundColor: "rgba(199, 199, 199, 0.8)",
+    backgroundColor: "rgba(250, 250, 250, 0.8)",
     flexDirection: "column",
     display: "flex",
     justifyContent: "center",
@@ -38,13 +46,38 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     height: 460,
     margin: 20,
+
     [theme.breakpoints.down("sm")]: {
       height: 260,
       fontSize: "3em",
     },
   },
+  //   font-family: 'Bungee Shade', cursive; maybe
+  // font-family: 'Ewert', cursive; maybe
+  // font-family: 'Fredericka the Great', cursive; maybe
+  // font-family: 'Geostar', cursive; no
+  // font-family: 'Jacques Francois Shadow', cursive; yes
+  // font-family: 'Kumar One Outline', cursive; no
+  // font-family: 'Miltonian', cursive; no
+  // font-family: 'Ribeye Marrow', cursive; maybe
+  // font-family: 'Tourney', cursive; maybe
   text: {
     fontSize: "1em",
+    fontFamily: [
+      // "Londrina Outline",
+      "Jacques Francois Shadow",
+      "cursive",
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
     [theme.breakpoints.down("sm")]: {
       fontSize: "0.25em",
     },
@@ -52,6 +85,11 @@ const useStyles = makeStyles((theme) => ({
   },
   words: {
     margin: 20,
+  },
+  map: {
+    margin: "30px 5px 5px 20px",
+    border: "solid",
+    // backgroundColor: theme.palette.secondary.main,
   },
 }));
 
@@ -90,9 +128,9 @@ export default function Home() {
           </Paper>
         </Grid>
       </Box>
-      <Grid container>
+      <Grid container={true}>
         <Grid item xs={12} md={6}>
-          <Typography sx={{ textTransform: "uppercase" }} variant="h6">
+          <Typography variant="h6" className={classes.words}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium
             nunc lacus, quis aliquam tortor efficitur id. Quisque nulla sem,
             commodo eu fermentum ut, pretium vitae est. Donec et nisi at ante
@@ -114,11 +152,12 @@ export default function Home() {
           {isMobile ? (
             <ReactMapGL
               {...viewport}
-              width="95vw"
+              width="90vw"
               height="460px"
               onViewportChange={setViewport}
               mapStyle="mapbox://styles/mapbox/streets-v11"
               mapboxApiAccessToken={TOKEN}
+              className={classes.map}
             >
               <Marker
                 latitude={39.369474}
@@ -132,11 +171,12 @@ export default function Home() {
           ) : (
             <ReactMapGL
               {...viewport}
-              width="45vw"
+              width="47vw"
               height="460px"
               onViewportChange={setViewport}
               mapStyle="mapbox://styles/mapbox/streets-v11"
               mapboxApiAccessToken={TOKEN}
+              className={classes.map}
             >
               <Marker
                 latitude={39.369474}

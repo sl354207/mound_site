@@ -106,7 +106,7 @@ export default function Home() {
   });
 
   return (
-    <div className="container">
+    <div>
       <Head>
         <title>Next.js Starter!</title>
         <link rel="icon" href="/favicon.ico" />
@@ -148,6 +148,7 @@ export default function Home() {
             id magna vestibulum convallis vitae lobortis arcu.
           </Typography>
         </Grid>
+
         <Grid item xs={12} sm={6}>
           {isMobile ? (
             <ReactMapGL
@@ -190,8 +191,6 @@ export default function Home() {
           )}
         </Grid>
       </Grid>
-
-      <Footer />
     </div>
   );
 }

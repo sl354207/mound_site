@@ -192,7 +192,7 @@ const Nav = () => {
   ];
 
   return (
-    <div className={classes.root}>
+    <>
       <AppBar position="fixed">
         <Toolbar>
           {/* <div>
@@ -266,6 +266,7 @@ const Nav = () => {
                       key={menuItem.menuTitle}
                       onClick={() => {
                         handleDrawerClose(Event);
+                        handleChange;
                         router.push(menuItem.pageURL);
                       }}
                     >
@@ -320,7 +321,7 @@ const Nav = () => {
         </Toolbar>
       </AppBar>
       <Toolbar></Toolbar>
-    </div>
+    </>
   );
 };
 

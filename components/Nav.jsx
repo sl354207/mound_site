@@ -260,13 +260,13 @@ const Nav = () => {
                 </div>
                 <Divider />
                 <List>
-                  {menuItems.map((menuItem) => (
+                  {menuItems.map((menuItem, index) => (
                     <ListItem
                       button
                       key={menuItem.menuTitle}
                       onClick={() => {
                         handleDrawerClose(Event);
-                        handleChange;
+                        setValue(index);
                         router.push(menuItem.pageURL);
                       }}
                     >
